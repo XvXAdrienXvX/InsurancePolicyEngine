@@ -1,3 +1,4 @@
+using Insurance.Application.Commands;
 using Insurance.Domain.DataContracts;
 using Insurance.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<InsuranceDbContext>(options =>
     options.UseSqlite(connectionString));
 
-builder.Services.AddControllers();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateContractHandler>());
 
 // Register repositories
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
@@ -20,7 +21,7 @@ builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>)
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

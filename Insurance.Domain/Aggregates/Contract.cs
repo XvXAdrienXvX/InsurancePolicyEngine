@@ -10,6 +10,7 @@
 
         private List<Policy> _policies = new();
         public IReadOnlyCollection<Policy> Policies => _policies.AsReadOnly();
+        public List<Guid> PolicyIds { get; private set; } = new();
 
         private Contract() : base(Guid.NewGuid()) { }
 
@@ -23,22 +24,16 @@
             Status = "Active";
         }
 
-        public static Contract Create(string contractNumber, string holderName, DateTime startDate, DateTime endDate)
+        public static Contract Create(string contractNumber, string holderName, DateTime startDate,DateTime endDate)
         {
             if (string.IsNullOrEmpty(contractNumber))
-            {
                 throw new ArgumentException("Contract number cannot be empty.");
-            }
 
             if (string.IsNullOrEmpty(holderName))
-            {
                 throw new ArgumentException("Holder name cannot be empty.");
-            }
 
             if (startDate >= endDate)
-            {
                 throw new ArgumentException("End date must be greater than start date.");
-            }
 
             return new Contract(contractNumber, holderName, startDate, endDate);
         }
@@ -46,7 +41,10 @@
         public void AddPolicy(Policy policy)
         {
             if (policy == null) throw new Exception("Policy cannot be null.");
+
             _policies.Add(policy);
+            PolicyIds.Add(policy.Id);
         }
     }
+
 }
