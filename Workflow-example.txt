@@ -1,0 +1,73 @@
+**Insurance System Workflow**
+
+### 1. Create a PolicyType
+Defines the available types of policies (e.g., Auto, Health, Home).
+**Endpoint:** POST /policy-types
+**Request:**
+- Name: "Auto Insurance"
+- Description: "Covers vehicle damages and liability."
+
+### 2. Create a Contract
+A Contract is an agreement between the insurer and the insured, governing multiple policies over a period.
+**Endpoint:** POST /contracts
+**Request:**
+- Contract Number: "CN-123456"
+- Holder Name: "John Doe"
+- Start Date: "2025-01-01"
+- End Date: "2030-01-01"
+
+### 3. Add Policies to a Contract
+Each policy is issued under a contract and has a PolicyType.
+**Endpoint:** POST /contracts/{contractId}/policies
+**Request:**
+- Policy Type ID: "AUTO"
+- Policy Holder: "John Doe"
+- Premium Amount: 600.00
+
+### 4. Retrieve All Policies Under a Contract
+Allows clients to see their covered policies.
+**Endpoint:** GET /contracts/{contractId}/policies
+**Response Example:**
+- Contract Number: "CN-123456"
+- Holder Name: "John Doe"
+- Policies:
+  - Policy ID: "P123", Policy Type: "Auto", Premium: 600
+  - Policy ID: "P124", Policy Type: "Health", Premium: 1200
+
+### 5. Submit a Claim for a Policy
+Claims must be linked to a policy.
+**Endpoint:** POST /claims
+**Request:**
+- Policy ID: "P123"
+- Claim Number: "C987654"
+- Description: "Car accident"
+- Amount: 5000
+- Status: "Pending"
+
+### 6. Update Claim Status
+Allows insurers to process claims.
+**Endpoint:** PUT /claims/{claimId}
+**Request:**
+- Status: "Approved"
+
+### 7. Retrieve a Claim
+Allows policyholders to track claim status.
+**Endpoint:** GET /claims/{claimId}
+**Response Example:**
+- Claim ID: "C987654"
+- Policy ID: "P123"
+- Description: "Car accident"
+- Amount: 5000
+- Status: "Approved"
+
+### Summary
+- Contract can have multiple policies.
+- Each policy has its own PolicyType.
+- Claims are tied to policies.
+- Workflow is structured for easy implementation following DDD principles.
+
+### Next Steps
+1. Implement event-driven approach with Kafka/HiveMQ for claim status updates.
+2. Design repository pattern for contracts & policies.
+3. Integrate Payment module for policy premiums.
+
