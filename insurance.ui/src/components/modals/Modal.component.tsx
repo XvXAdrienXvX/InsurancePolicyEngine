@@ -18,10 +18,13 @@ type Props = {
 const Modal = ({
   title,
   show = false,
+  onSubmit,
+  submitLabel = "Submit",
   close = () => {},
   closeLabel = "Cancel",
   body,
   className = "",
+  hideSubmitButton,
   hideCancelButton,
   modalBackgroundClass = "",
 }: Props) => {
@@ -39,13 +42,23 @@ const Modal = ({
         <header className="flex justify-between items-center border-b pb-3">
           <h2 className="text-lg font-semibold">{title}</h2>
         </header>
+
         <main className="py-4">{body}</main>
+
         <footer className="flex justify-end space-x-4">
           {!hideCancelButton && (
             <Button
               handleClick={close}
               label={closeLabel}
               className="px-4 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-700 transition-colors duration-300"
+            />
+          )}
+
+          {!hideSubmitButton && (
+            <Button
+              handleClick={onSubmit}
+              label={submitLabel}
+              className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 transition-colors duration-300"
             />
           )}
         </footer>
