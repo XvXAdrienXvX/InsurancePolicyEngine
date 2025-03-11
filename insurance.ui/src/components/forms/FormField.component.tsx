@@ -33,7 +33,6 @@ const FormField: FC<Props> = ({ name, label, type, options, placeholder }) => {
       case "select":
         return (
           <Field as="select" name={name} id={name} className="p-2 border border-gray-300 rounded-md w-full">
-            {/* Add a placeholder option */}
             <option value="" disabled selected={!values[name]}>
               {placeholder || "Select an option"}
             </option>
