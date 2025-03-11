@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurance.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurance.Application", "Insurance.Application\Insurance.Application.csproj", "{79A5B7EE-01D4-4BB6-9F45-59182C30ECAD}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "insurance.ui", "Insurance.UI\insurance.ui.esproj", "{3909D6D3-D22B-7827-99F8-5FD735E53E22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,9 +42,18 @@ Global
 		{79A5B7EE-01D4-4BB6-9F45-59182C30ECAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79A5B7EE-01D4-4BB6-9F45-59182C30ECAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79A5B7EE-01D4-4BB6-9F45-59182C30ECAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3909D6D3-D22B-7827-99F8-5FD735E53E22} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EF99A41-9F07-43D9-AF3D-1819E2769B3D}
