@@ -7,7 +7,7 @@ type Props = {
   name: string;
   label: string;
   type: "text" | "email" | "password" | "select" | "checkbox" | "date";
-  options?: { value: string; label: string }[];
+  options?: { value: string; label: string; disabled?: boolean }[]; // Add disabled to options type
   placeholder?: string;
 };
 
@@ -33,8 +33,12 @@ const FormField: FC<Props> = ({ name, label, type, options, placeholder }) => {
       case "select":
         return (
           <Field as="select" name={name} id={name} className="p-2 border border-gray-300 rounded-md w-full">
+            {/* Add a placeholder option */}
+            <option value="" disabled selected={!values[name]}>
+              {placeholder || "Select an option"}
+            </option>
             {options?.map((option) => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} disabled={option.disabled}>
                 {option.label}
               </option>
             ))}

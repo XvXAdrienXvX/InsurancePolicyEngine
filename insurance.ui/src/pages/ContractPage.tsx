@@ -89,10 +89,13 @@ const ContractPage: React.FC = () => {
                         label="Policy Type"
                         name="policyType"
                         type="select"
-                        options={policyTypes.map((policy) => ({
-                          value: policy.Id,
-                          label: policy.name,
-                        }))}
+                        options={[
+                          { value: '', label: 'Select a Policy Type', disabled: true },
+                          ...policyTypes.map((policy) => ({
+                            value: policy.Id,
+                            label: policy.name,
+                          })),
+                        ]}
                       />
                     </div>
                   </div>
