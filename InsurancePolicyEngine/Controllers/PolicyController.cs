@@ -1,9 +1,8 @@
 ﻿using Insurance.Application.Commands;
+using Insurance.Application.Queries;
 using Insurance.Application.RequestContracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace InsurancePolicyEngine.Controllers
 {
@@ -23,6 +22,14 @@ namespace InsurancePolicyEngine.Controllers
         public async Task<IActionResult> CreatePolicyType([FromBody] CreatePolicyTypeRequest request)
         {
             var result = await _mediator.Send(new CreatePolicyTypeCommand(request));
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("PolicyTypes")]
+        public async Task<IActionResult> GetAllPolicyTypes()
+        {
+            var result = await _mediator.Send(new GetAllPolicyTypeQuery());
             return Ok(result);
         }
     }
