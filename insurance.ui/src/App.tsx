@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import AppRouter from "./routes";
+import TabList from "./components/navigation/TabList.component";
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [activeTab, setActiveTab] = useState("/contracts");
+
+  const tabs = [
+    { title: "Contracts", link: "/contracts" },
+    { title: "Policies", link: "/policies" },
+    { title: "Claims", link: "/claims" },
+  ];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="flex flex-col items-center min-h-screen bg-gray-200">
+      <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-export default App
+      {/* Page Content */}
+      <div className="w-full max-w-7xl p-6 bg-gray-200 mt-6">
+        <AppRouter />
+      </div>
+    </div>
+  );
+};
+
+export default App;
