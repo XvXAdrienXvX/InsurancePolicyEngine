@@ -4,11 +4,19 @@ import Modal from "../components/modals/Modal.component";
 import { Form, Formik } from "formik";
 import FormField from "../components/forms/FormField.component";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPolicyTypeRequest } from "../core/actions/policy.action";
+import { AppDispatch, RootState } from "../core/store/Store";
 
 const ContractPage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const policyTypes = useSelector((state: RootState) => state.policy.policyTypes); 
+  
   const handleAdd = () => {
+    dispatch(fetchPolicyTypeRequest()); 
     setIsModalVisible(true);
   };
 
@@ -32,6 +40,7 @@ const ContractPage: React.FC = () => {
     contractNumber: Yup.string().required("Contract Number is required"),
     startDate: Yup.date().required("Start Date is required"),
     endDate: Yup.date().required("End Date is required"),
+    policyType: Yup.string().required("Policy Type is required")
   });
 
   return (
@@ -48,6 +57,7 @@ const ContractPage: React.FC = () => {
             contractNumber: "",
             startDate: "",
             endDate: "",
+            policyType: "",
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -73,6 +83,17 @@ const ContractPage: React.FC = () => {
                     </div>
                     <div className="w-full">
                       <FormField label="End Date" name="endDate" type="date" />
+                    </div>
+                    <div className="w-full">
+                      <FormField
+                        label="Policy Type"
+                        name="policyType"
+                        type="select"
+                        options={policyTypes.map((policy) => ({
+                          value: policy.Id,
+                          label: policy.name,
+                        }))}
+                      />
                     </div>
                   </div>
                 </Form>
