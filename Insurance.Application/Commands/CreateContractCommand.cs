@@ -25,14 +25,19 @@ namespace Insurance.Application.Commands
             {
                 var newContract = Contract.Create(cmd.request.ContractNumber, cmd.request.HolderName, cmd.request.StartDate, cmd.request.EndDate);
 
-                if (cmd.request.PolicyIds.Any())
-                {
-                    // To Add new field Amount for PolicyType 
+                if (!cmd.request.PolicyIds.Any())
+                    throw new Exception("No policies selected for the contract.");
 
-                    var policies = cmd.request.PolicyIds
-                                                 .Select(policyId => new Policy(newContract.Id, policyId, cmd.request.HolderName, 0))
-                                                 .ToList();
-                }
+                List<Guid> policyTypeIds = cmd.request.PolicyIds;
+                var policyTypes = await _policyTypeRepo.FindAsync(p => policyTypeIds.Contains(p.Id));
+
+                if (!policyTypes.Any())
+                    throw new Exception("No policy types found.");
+
+                var policies = policyTypes.Select(policyType => Policy.Create(newContract.Id, policyType, cmd.request.HolderName)).ToList();
+
+                newContract.AddPolicies(policies);
+                newContract.CalculateTotalPremium();
 
                 var entity = await _contractCmdRepo.CreateAsync(newContract);
 

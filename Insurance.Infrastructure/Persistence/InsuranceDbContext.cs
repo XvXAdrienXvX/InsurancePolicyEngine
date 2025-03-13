@@ -50,9 +50,9 @@ namespace Insurance.Infrastructure.Persistence
                 .HasKey(pt => pt.Id);
 
             modelBuilder.Entity<Policy>()
-                .HasOne<PolicyType>()
-                .WithMany()
-                .HasForeignKey(p => p.PolicyTypeId)
+                .HasOne(p => p.PolicyType)
+                .WithOne()
+                .HasForeignKey<Policy>(p => p.PolicyTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 

@@ -21,7 +21,7 @@ namespace Insurance.Application.Commands
         {
             try
             {
-                var entity = await _policyTypeCmdRepo.CreateAsync(new PolicyType(cmd.request.Name, cmd.request.Description));
+                var entity = await _policyTypeCmdRepo.CreateAsync(new PolicyType(cmd.request.Name, cmd.request.Description, cmd.request.Amount));
 
                 return APIResponse.Success(true);
             }

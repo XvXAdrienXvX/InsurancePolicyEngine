@@ -20,8 +20,19 @@ namespace InsurancePolicyEngine.Controllers
         [Route("CreateContract")]
         public async Task<IActionResult> CreateContract([FromBody] CreateContractRequest request)
         {
-            var result = await _mediator.Send(new CreateContractCommand(request));
-            return Ok(result);
+            try
+            {
+                var result = await _mediator.Send(new CreateContractCommand(request));
+
+                if (!result.IsSuccess)
+                    return BadRequest(new { message = result.Error.Message });
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
 
         [HttpGet]

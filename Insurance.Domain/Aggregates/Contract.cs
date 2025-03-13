@@ -7,7 +7,7 @@
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public string Status { get; private set; } // Active, Expired
-
+        public decimal TotalPremium { get; private set; }
         private List<Policy> _policies = new();
         public IReadOnlyCollection<Policy> Policies => _policies.AsReadOnly();
         public List<Guid> PolicyIds { get; private set; } = new();
@@ -22,6 +22,7 @@
             StartDate = startDate;
             EndDate = endDate;
             Status = "Active";
+            TotalPremium = 0;
         }
 
         public static Contract Create(string contractNumber, string holderName, DateTime startDate,DateTime endDate)
@@ -45,6 +46,17 @@
             _policies.Add(policy);
             PolicyIds.Add(policy.Id);
         }
+
+        public void AddPolicies(List<Policy> policies)
+        {
+            if (policies == null || !policies.Any())
+                throw new Exception("Policies cannot be null or empty.");
+
+            _policies.AddRange(policies);
+        }
+
+        public void CalculateTotalPremium() => TotalPremium = _policies.Sum(p => p.PolicyType?.Amount ?? 0);
+
     }
 
 }
